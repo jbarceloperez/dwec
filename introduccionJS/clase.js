@@ -118,7 +118,10 @@ let sinValor = null;
 // Esto puede llevar a confusión al operar las variables, ya que (por ejemplo) podemos 
 // querer sumar dos números, pero que sean interpretados como cadenas y en vez de sumarse se concatenen como strings.
 // Para forzar un tipo (casting) se añade el tipo previamente al valor
-console.log(`3.12 + "5" = ${3.12+Number("5")}`);
+let var1 = 3.12;
+let var2 = "5";
+
+console.log(`3.12 + "5" = ${var1+Number(var2)}`);  
 console.log(`"67" + 11 = ${Number("67")+11}`);
 
 /********************************************
@@ -137,18 +140,18 @@ console.error("Versión ERROR de un mensaje por consola");
 
 // confirm salta un cuadro de diálogo con dos opciones, aceptar o cancelar.
 // Devuelve true si se pulsa Aceptar, y false si se pulsa Cancelar.
-let respuesta = confirm("¿Aceptar o cancelar?");
-console.log(`Respuesta del confirm: ${respuesta}.`);
+// let respuesta = confirm("¿Aceptar o cancelar?");
+// console.log(`Respuesta del confirm: ${respuesta}.`);
 
 // prompt salta un cuadro de diálogo con un cuadro de texto.
 // Guarda en la variable un string con lo introducido en el cuadro de texto,
 // y si se pulsa cancelar se guardará null. Se puede añadir texto por defecto como segundo parámetro.
-let datos = prompt("Introduzca los datos:", "Texto por defecto (opcional)");
-console.log(`Datos introducidos: ${datos}.`);
+// let datos = prompt("Introduzca los datos:", "Texto por defecto (opcional)");
+// console.log(`Datos introducidos: ${datos}.`);
 
 // alert simplemente muestra algun mensaje informativo, no obtiene
 // ningún input del usuario.
-alert("¡¡Alerta!!");
+// alert("¡¡Alerta!!");
 
 /************************
  ****** OPERADORES ******
@@ -181,14 +184,39 @@ console.log("Multiplicación (a * b):", a * b);
 console.log("División (a / b):", a / b);
 console.log("Módulo (a % b):", a % b);
 console.log("Exponenciación (a ** b):", a ** b);
+console.log("Incremento (a++):", a++); // devuelve el valor antes de incrementar
+console.log("Valor de a tras incremento:", a); // ahora a vale 8
+console.log("Decremento (b--):", b--); // devuelve el valor antes de decrementar
+console.log("Valor de b tras decremento:", b); // ahora b vale 2
+
+// Operadores de Comparación
+a = 5;
+b = '5'; // string
+console.log("\n--- Operadores de Comparación ---");
+console.log("Igualdad (a == b):", a == b); // true si son iguales en valor
+console.log("Desigualdad (a != b):", a != b); // true si son distintos en valor
+console.log("Estrictamente igual (a === b):", a === b); // true si son iguales en valor y tipo
+console.log("Estrictamente distinto (a !== b):", a !== b); // true si son distintos en valor o tipo
+console.log("Mayor que (a > b):", a > b);   // true si a es mayor que b
+console.log("Menor que (a < b):", a < b);  // true si a es menor que b
+console.log("Mayor o igual que (a >= b):", a >= b); // true si a es mayor o igual que b
+console.log("Menor o igual que (a <= b):", a <= b); // true si a es menor o igual que b
 
 // Operadores Lógicos
 console.log("\n--- Operadores Lógicos ---");
 const c = true;
-const d = false;
+const d = true;
 console.log("AND lógico (c && d):", c && d); // true si ambos son true
 console.log("OR lógico (c || d):", c || d); // true si al menos uno es true
+console.log("XOR lógico (c ^ d):", c ^ d); // true si uno es true y el otro false
 console.log("NOT lógico (!c):", !c); // Invierte el valor lógico
+
+// Operador Ternario: asigna el valor correspondiente según la evaluación de una condición
+console.log("\n--- Operador Ternario ---");
+let edad = 20;
+// condición ? valor_si_verdadero : valor_si_falso
+let esMayor = (edad >= 18) ? true : false;
+console.log("¿Es mayor de edad?:", esMayor);
 
 /************************************
  ****** ESTRUCTURAS DE CONTROL ******
@@ -197,15 +225,18 @@ console.log("NOT lógico (!c):", !c); // Invierte el valor lógico
 
 // Condicional if-else
 console.log("\n--- if-else ---");
-const edad = 20;
-if (edad >= 18) {
+const EDAD = 20;
+if (EDAD >= 18) 
+{
     console.log("Eres mayor de edad.");
-} else {
+} 
+else 
+{
     console.log("Eres menor de edad.");
 }
 
 // Condicional if-else if-else
-const nota = 85;
+const nota = 55;
 if (nota >= 90) {
     console.log("Tu calificación es A.");
 } else if (nota >= 80) {
