@@ -140,18 +140,18 @@ console.error("Versión ERROR de un mensaje por consola");
 
 // confirm salta un cuadro de diálogo con dos opciones, aceptar o cancelar.
 // Devuelve true si se pulsa Aceptar, y false si se pulsa Cancelar.
-// let respuesta = confirm("¿Aceptar o cancelar?");
-// console.log(`Respuesta del confirm: ${respuesta}.`);
+let respuesta = confirm("¿Aceptar o cancelar?");
+console.log(`Respuesta del confirm: ${respuesta}.`);
 
 // prompt salta un cuadro de diálogo con un cuadro de texto.
 // Guarda en la variable un string con lo introducido en el cuadro de texto,
 // y si se pulsa cancelar se guardará null. Se puede añadir texto por defecto como segundo parámetro.
-// let datos = prompt("Introduzca los datos:", "Texto por defecto (opcional)");
-// console.log(`Datos introducidos: ${datos}.`);
+let datos = prompt("Introduzca los datos:", "Texto por defecto (opcional)");
+console.log(`Datos introducidos: ${datos}.`);
 
 // alert simplemente muestra algun mensaje informativo, no obtiene
 // ningún input del usuario.
-// alert("¡¡Alerta!!");
+alert("¡¡Alerta!!");
 
 /************************
  ****** OPERADORES ******
