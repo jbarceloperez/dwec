@@ -2,17 +2,25 @@
 // 1. TRABAJANDO CON ARRAYS
 // ==============================
 
+console.log("\n");
+
 // Creación de un array
 console.log("=== ARRAYS ===");
-let arrayEjemplo = [1, 2, 3, 4, 5]; // Creamos un array con valores iniciales
-let mimMatriz = [0,1][1,0];
+let arrayEjemplo = [1, true, 3, "hola", 5]; // Creamos un array con valores iniciales
+let mimMatriz = [[0,1,2],[1,0,2]];
+/*
+0  1  2
+1  0  2
+*/
 let arrayVacio = [];
 let otroArray = Array();
 console.log("Array inicial:", arrayEjemplo);
 
 // Agregar elementos al array
+
 arrayEjemplo.push(6); // Agregamos un elemento al final
 arrayEjemplo.unshift(0); // Agregamos un elemento al inicio
+arrayEjemplo[8] = "nuevo elemento"; // Agregamos un nuevo elemento en la posición 5
 console.log("Array después de agregar elementos:", arrayEjemplo);
 
 // Modificar elementos
@@ -25,16 +33,31 @@ arrayEjemplo.shift(); // Elimina el primer elemento
 console.log("Array después de eliminar elementos:", arrayEjemplo);
 
 // Recorrer un array
-for(let i = 0; i < arrayEjemplo.length; i++)
+for(let i = 0; i < arrayEjemplo.length; i++)     // Bucle tradicional
 {
     console.log(arrayEjemplo[i]);
 }
 
-for (let valor of arrayEjemplo)
+for (let valor of arrayEjemplo)  // Este bucle itera sobre TODOS los valores, incluidos los 'huecos' (undefined)
 {
     console.log(valor);
 }
 
+for (let indice in arrayEjemplo)        // Este bucle solo itera sobre los índices que tienen valor asignado
+{
+    console.log(arrayEjemplo[indice]);
+}
+
+let matriz = [[1,2,3],[4,5,6]];
+
+// Recorrer matrices
+console.log("Matrices")
+for (let i=0; i<matriz.length; i++){
+    for (let j=0; j<matriz[i].length; j++){
+        console.log(matriz[i][j]);
+    }
+}
+    
 // Referenciar Arrays
 
 // Al crear una variable con el valor de otra, lo que tenemos son dos variables independientes
@@ -58,16 +81,21 @@ console.log(arrayConcatenado);
 
 let arrayCopiado = arrayEjemplo.slice();
 
-let arrayMedioCopiado = arrayEjemplo.slice(0,2);
+let arrayMedioCopiado = arrayEjemplo.slice(1,4);
+console.log(arrayMedioCopiado);   // Copiamos desde el índice 1 hasta el 4 (no incluido), en el 4 para
 
 // Saber si hay un valor en el array
 let condicion = 9;
-console.log(arrayEjemplo.includes(condicion));
+console.log(arrayEjemplo.includes(condicion));  // Devuelve true o false si el valor está en el array,
+                                                // utiliza el === para comparar, por lo que el tipo debe coincidir
+
+console.log(arrayEjemplo.indexOf(condicion));   // Devuelve el índice del valor en el array, o -1 si no lo encuentra
 
 // Ordenar arrays
 let arrayOrdenado = arrayEjemplo.sort();
 let arrayReverso = arrayEjemplo.reverse();
-console.log(arrayOrdenado);     // OJO, el método sort() ordena alfabéticamente, no numéricamente.
+
+console.log(arrayOrdenado.sort());     // OJO, el método sort() ordena alfabéticamente, no numéricamente.
 
 // Convertir el array a un Set
 let setDesdeArray = new Set(arrayEjemplo);
@@ -75,13 +103,13 @@ console.log("Set creado desde el array:", setDesdeArray);
 
 console.log("\n");
 
-// // ==============================
-// // 2. TRABAJANDO CON SETS
-// // ==============================
+// ==============================
+// 2. TRABAJANDO CON SETS
+// ==============================
 
 console.log("=== SETS ===");
 // Creación de un Set
-let setEjemplo = new Set([1, 2, 3, 4, 5]); // Creamos un Set con valores iniciales
+let setEjemplo = new Set([1, 2, 4, 3, 4, 5, 5, 4]); // Creamos un Set con valores iniciales
 console.log("Set inicial:", setEjemplo);
 
 // Agregar elementos al Set
@@ -99,7 +127,7 @@ console.log("¿El Set contiene el número 4?", setEjemplo.has(4));
 
 // Recorrer un Set
 
-for (const elemento of setEjemplo) {
+for (let elemento of setEjemplo) {
     console.log(elemento);
 }
 
@@ -116,9 +144,9 @@ console.log(conjunto);
 
 console.log("\n");
 
-// // ==============================
-// // 3. TRABAJANDO CON MAPS
-// // ==============================
+// ==============================
+// 3. TRABAJANDO CON MAPS
+// ==============================
 
 console.log("=== MAPS ===");
 // Creación de un Map
@@ -154,6 +182,7 @@ for (const par of mapEjemplo)
     console.log(par);
 }
 
+console.log(mapEjemplo.keys());
 // Recorrer el mapa obteniendo las claves del mapa en la variable 'clave'
 for (let clave of mapEjemplo.keys())
 {
@@ -161,9 +190,9 @@ for (let clave of mapEjemplo.keys())
 }
 
 
-// // Convertir un Map a un Array
-// let arrayDesdeMap = Array.from(mapEjemplo);
-// console.log("Array creado desde el Map:", arrayDesdeMap);
+// Convertir un Map a un Array
+let arrayDesdeMap =[...mapEjemplo];
+console.log("Array creado desde el Map:", arrayDesdeMap);
 
 console.log("\n");
 
@@ -192,3 +221,5 @@ console.log("Map creado desde un array de pares clave-valor:", nuevoMap);
 // Map a Array
 let arrayDesdeNuevoMap = [...nuevoMap];
 console.log("Array desde un Map:", arrayDesdeNuevoMap);
+
+console.log("\n");
