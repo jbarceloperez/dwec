@@ -18,7 +18,7 @@ console.log("Array inicial:", arrayEjemplo);
 
 // Agregar elementos al array
 
-arrayEjemplo.push(6); // Agregamos un elemento al final
+arrayEjemplo.push(6); // Agregamos un elemento al final 
 arrayEjemplo.unshift(0); // Agregamos un elemento al inicio
 arrayEjemplo[8] = "nuevo elemento"; // Agregamos un nuevo elemento en la posición 5
 console.log("Array después de agregar elementos:", arrayEjemplo);
