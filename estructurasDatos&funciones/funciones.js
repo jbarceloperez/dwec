@@ -36,11 +36,12 @@ console.log("Resultado de multiplicar 4 y 3:", resultado);
 // 3. Ámbito de las Variables
 console.log("\n--- Ámbito de las Variables ---");
 
-let variableGlobal = "Soy global"; // Variable global
+let variableGlobal = "Soy global";      // Variable global
 let mensaje = "Valor fuera de la función";
 
-function mostrarAmbito() {
-    let variableLocal = "Soy local"; // Variable local
+function mostrarAmbito() 
+{
+    let variableLocal = "Soy local";    // Variable local
     let mensaje = "Valor dentro de la función"; // Variable "mensaje" de ámbito local
     console.log("Dentro de la función:", variableGlobal);
     console.log("Dentro de la función:", variableLocal);
@@ -99,7 +100,7 @@ cambiarObjeto(persona);
 console.log("Fuera de la función (por referencia):", persona); // El objeto original se modifica
 
 // se pueden añadir parámetros por defecto
-function dividir(numerador, denominador=1) {
+function dividir(numerador=1, denominador=1) {
     return numerador/denominador;
 }
 
@@ -129,10 +130,11 @@ function funcionDeclarada() {
 funcionDeclarada();
 
 // 5.2 Funciones por Expresión
-const funcionExpresion = function () {
+const funcionExpresion = function funcionEnLaExpresion() {
     console.log("Soy una función por expresión.");
 };
 funcionExpresion();
+// funcionEnLaExpresion(); // Esto dará error porque la función no está en el ámbito global
 
 // 5.3 Funciones como Objetos (esto realmente no se usa nunca)
 function funcionObjeto() {}
@@ -157,7 +159,7 @@ function imprimirDato(dato) {
     console.log("Dato procesado:", dato);
 }
 
-procesarDatos("Hola", imprimirDato);
+procesarDatos("Cadena de texto con el dato", imprimirDato);
 
 // 5.6 Funciones Autoejecutables (IIFE)
 console.log("\n--- Funciones Autoejecutables ---");
@@ -182,6 +184,20 @@ funcionFlecha();
 // Función flecha con parámetros
 const sumarFlecha = (a, b) => a + b; // Retorno implícito
 console.log("Suma con función flecha:", sumarFlecha(8, 5));
+
+// ==============
+// Recursividad
+// ==============
+console.log("\n--- Recursividad ---");
+
+function fibo(n) {
+    console.log("fibo(", n, ")");
+    if (n == 1) return 0;
+    if (n == 2) return 1;
+    return fibo(n-1) + fibo(n-2);
+}
+
+console.log("Fibonacci de 8:", fibo(8)); // 13
 
 // ==============================
 // EJEMPLOS
