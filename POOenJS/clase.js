@@ -1,13 +1,17 @@
+// ==============================================
+// PROGRAMACIÓN ORIENTADA A OBJETOS EN JAVASCRIPT
+// ==============================================
+
+// Definición de una variable, cadena, array y objeto
 let variable = 10;
-console.log(variable);
+console.log(typeof variable);
 
+// A esta cadena podemos aplicarle métodos propios de los strings
 let cadena = "hola".toUpperCase();
-console.log(cadena);
-
+console.log(typeof cadena);
 
 let vector = [0,1,2];
 console.log(typeof vector);
-
 
 let vehiculo = {
     marca: "audi",
@@ -20,6 +24,8 @@ let vehiculo = {
 };
 
 vehiculo.color = "azul";
+vehiculo.longitud = 4.5;
+console.log(vehiculo);
 vehiculo.caballos = 130;
 vehiculo.mostrarInformacion();
 
@@ -35,12 +41,14 @@ class Viaje {
         this.precio = prec;
     }
     mostrarInformacion() {
-        console.log(`Viaje desde ${this.origen} hasta ${this.destino} de ${this.dias} por ${this.precio}€.`);
+        console.log(`Viaje desde ${this.origen} hasta ${this.destino} de ${this.dias} días por ${this.precio}€.`);
     }
 };
 
 let miViaje = new Viaje("Cartagena", "Murcia", 2, 8);
 miViaje.mostrarInformacion();
+delete miViaje.dias;
+console.log(miViaje);
 
 for(atributo in miViaje) {
     console.log(atributo);
@@ -53,40 +61,40 @@ let cadenaJson = JSON.stringify(miViaje);       // stringify pasa de objeto a te
 console.log(cadenaJson);
 
 let objeto = JSON.parse(cadenaJson);
-console.log(objeto instanceof Object);
+console.log(objeto instanceof Viaje);       // false, porque al parsear se crea un objeto genérico, es del tipo Object
 
-console.log("   - PROTOTIPOS - ");
+// console.log("   - PROTOTIPOS - ");
 
-console.log(miViaje);
+// console.log(miViaje);
 
-///////////// Objetos predefinidos de JavaScript
+// ///////////// Objetos predefinidos de JavaScript
 
-let cadenaEjemplo = "Cadena de ejemplo";
-let stringObject = Object("otra cadena de ejemplo");
+// let cadenaEjemplo = "Cadena de ejemplo";
+// let stringObject = Object("otra cadena de ejemplo");
 
-console.log(stringObject);
+// console.log(stringObject);
 
-console.log(cadenaEjemplo.toUpperCase());
-console.log(cadenaEjemplo.toLowerCase());
+// console.log(cadenaEjemplo.toUpperCase());
+// console.log(cadenaEjemplo.toLowerCase());
 
-console.log(cadenaEjemplo.slice(7,9));
+// console.log(cadenaEjemplo.slice(7,9));
 
 
-// Date
+// // Date
 
-let fecha = new Date();
-console.log(fecha);
+// let fecha = new Date();
+// console.log(fecha);
 
-let miCumple = new Date(2000, 10, 30);
-console.log(miCumple);
+// let miCumple = new Date(2000, 10, 30);
+// console.log(miCumple);
 
-console.log(fecha.getDate());
-fecha.setHours(16);
-console.log(fecha.getHours());
+// console.log(fecha.getDate());
+// fecha.setHours(16);
+// console.log(fecha.getHours());
 
-// Math
+// // Math
 
-// Boolean
+// // Boolean
 
-let b1 = new Boolean(null);
-console.log(b1);
+// let b1 = new Boolean(null);
+// console.log(b1);
