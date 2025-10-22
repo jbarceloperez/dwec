@@ -148,7 +148,7 @@ clase1.mostrarClase();
 ///// MODIFICAR PROTOTIPOS /////
 ////////////////////////////////
 
-// console.log("   - PROTOTIPOS - ");
+console.log("   - PROTOTIPOS - ");
 console.log(estudiante1);   // Desde la consola se puede ver el prototipo del objeto
 console.log(profesor1);
 
@@ -156,21 +156,22 @@ console.log(profesor1);
 Persona.prototype.saludar = function () {
     console.log("Hola, soy " + this.getNombreCompleto());
 };
+
 // Aunque el método se añade después de crear el objeto, se puede utilizar igualmente
 estudiante1.saludar();
 profesor1.saludar();
 
 // Modificar el prototipo de una clase propia del lenguaje para añadir o modificar métodos
-String.prototype.toLowerCase = function () {
-    console.log("Esto no deberias hacerlo");
-}
+// String.prototype.toLowerCase = function () {
+//     console.log("Esto no deberias hacerlo");
+// }
 
 let str = "CADENA DE TEXTO";
 console.log(str.toLowerCase());     // Se ejecuta el método modificado en vez del original
 
-// // ----------------------------------
-// // Objetos predefinidos de JavaScript
-// // ----------------------------------
+// ----------------------------------
+// Objetos predefinidos de JavaScript
+// ----------------------------------
 
 // La clase String permite trabajar con cadenas de texto.
 // Ofrece muchos métodos para manipular, buscar o transformar texto.
@@ -250,6 +251,9 @@ console.log("abs(-5):", Math.abs(-5));       // valor absoluto
 console.log("round(7.8):", Math.round(num)); // redondeo al entero más cercano
 console.log("ceil(7.2):", Math.ceil(7.2));   // redondeo hacia arriba
 console.log("floor(7.8):", Math.floor(num)); // redondeo hacia abajo
+console.log("trunc(7.8):", Math.trunc(num)); // elimina decimales
+console.log("min(3, 7, 2, 9):", Math.min(3, 7, 2, 9)); // mínimo
+console.log("max(3, 7, 2, 9):", Math.max(3, 7, 2, 9)); // máximo
 
 // Potencias y raíces
 console.log("pow(2, 3):", Math.pow(2, 3));   // 2 elevado a 3 = 8
@@ -257,7 +261,8 @@ console.log("sqrt(16):", Math.sqrt(16));     // raíz cuadrada
 console.log("cbrt(27):", Math.cbrt(27));     // raíz cúbica
 
 // Aleatoriedad
-console.log("random():", Math.random()); // número aleatorio entre 0 y 1
+let numAleatorio = Math.random();           // número aleatorio entre 0 y 1
+console.log("random():", numAleatorio); 
 console.log("random entre 1 y 10:", Math.floor(Math.random() * 10) + 1);
 
 // Trigonometría (en radianes)
@@ -276,11 +281,16 @@ console.log("Boolean('texto'):", Boolean("texto")); // true
 console.log("Boolean(''):", Boolean(""));       // false
 console.log("Boolean(null):", Boolean(null));   // false
 console.log("Boolean(undefined):", Boolean(undefined)); // false
-
+console.log("Boolean([]):", Boolean([]));       // true
+console.log("Boolean({}):", Boolean({}));       // true
 
 // ==============================
 // JSON
 // ==============================
+console.log("\n=== JSON ===");
+
+// JSON (JavaScript Object Notation) es un formato ligero de intercambio de datos.
+// Se basa en una sintaxis similar a los objetos literales de JavaScript.
 
 class Coche {
     constructor(modelo, color) {
@@ -333,11 +343,11 @@ nuevoConcesionario.jsonACoches(cochesString);
 console.log(nuevoConcesionario);
 
 // Leer el contenido de un fichero JSON
-readFile("./clase.json", (error, data) => {
+readFile("./clase.json", (error, data) => { // parametro data tiene el contenido del fichero en una cadena
     if (error) {
         console.log("Error", error);
     } else {
-        const datos = JSON.parse(data);
+        const datos = JSON.parse(data); // Convertir la cadena JSON a un objeto JavaScript
         console.log(datos);
     }
 });
