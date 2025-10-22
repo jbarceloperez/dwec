@@ -1,5 +1,6 @@
 { 
     "origen": "Cartagena", 
     "destino": "Murcia", 
-    "dias": 2
+    "dias": 2,
+    "precio": 150
 }
