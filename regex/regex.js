@@ -16,7 +16,7 @@ console.log(regex.test(txt)); // false
 // **1. Modificador i -  Búsqueda sin diferenciar entre mayúsculas y minúsculas**
 console.log("=== Modificador i ===");
 let regexI = /hola/i;   // Coincidirá con "hola", "Hola", "HOLA", etc.
-console.log(regexI.test("hola mundo"));
+console.log(regexI.test("HOLA mundo"));
 console.log(regexI.test("hOLa mundo"));
 
 // **2. Modificador `^`: Coincidir al inicio de la cadena**
@@ -37,17 +37,17 @@ console.log(regexCombo.test("hola mundo")); // true
 // **4. Modificador `.`: Coincide con cualquier carácter (excepto nueva línea)**
 console.log("\n=== Modificador . ===");
 let regexDot = /h.l./; // Coincide con cualquier palabra que tenga 4 caracteres, donde el segundo y cuarto pueden ser cualquier cosa
-console.log(regexDot.test("hola")); // true
-console.log(regexDot.test("hilo")); // true
+console.log(regexDot.test("hola mundo")); // true
+console.log(regexDot.test("h lo")); // true
 console.log(regexDot.test("haol")); // false
 
 // **5. Modificador `[]`: Coincidir con cualquier carácter dentro del conjunto**
 console.log("\n=== Modificador [] ===");
-let regexSet = /h[a-e]la/; // Coincide con "hala", "hbla", "hcla", "hdla", "hela"
+let regexSet = /h[a-eA-E0-9]la/; // Coincide con "hala", "hbla", "hcla", "hdla", "hela"
 console.log(regexSet.test("hala")); // true
 console.log(regexSet.test("hela")); // true
-console.log(regexSet.test("hbla")); // true
-console.log(regexSet.test("hpla")); // false
+console.log(regexSet.test("hCla")); // true
+console.log(regexSet.test("hila")); // false
 
 // **6. Modificador `[^expresion]`: Coincidir con cualquier carácter que NO esté en el conjunto**
 console.log("\n=== Modificador [^expresion] ===");
@@ -57,29 +57,29 @@ console.log(regexNotSet.test("hpla")); // true
 console.log(regexNotSet.test("h@la")); // true
 
 let regexVocalConsonante = /^[aeiou][^aeiou]$/;
-console.log(regexVocalConsonante.test("ap")); // true
+console.log(regexVocalConsonante.test("a ")); // true
 
 // **7. Modificadores de Cardinalidad: `*`, `+`, `?` y {}**
 console.log("\n=== Modificadores de cardinalidad ===");
 // `*`: Coincide 0 o más veces
 console.log("\n Modificador * ");
-let regexAsterisk = /ho*/; // Coincide con "h", "ho", "hoo", etc.
-console.log(regexAsterisk.test("h")); // true
+let regexAsterisk = /ho*la/; // Coincide con "h", "ho", "hoo", etc.
+console.log(regexAsterisk.test("hla")); // true
 console.log(regexAsterisk.test("hoooola")); // true
 console.log(regexAsterisk.test("hola")); // true
 
 // `+`: Coincide 1 o más veces
 console.log("\n Modificador + ");
-let regexPlus = /ho+/; // Coincide con "ho", "hoo", etc.
-console.log(regexPlus.test("h")); // false
-console.log(regexPlus.test("hoooola")); // true
+let regexPlus = /ho+la/; // Coincide con "ho", "hoo", etc.
+console.log(regexPlus.test("hla")); // false
+console.log(regexPlus.test("hoooooola")); // true
 
 // `?`: Coincide 0 o 1 vez
 console.log("\n Modificador ? ");
-let regexQuestion = /ho?/; // Coincide con "h" o "ho"
+let regexQuestion = /ho?la/; // Coincide con "h" o "ho"
 console.log(regexQuestion.test("hola")); // true
-console.log(regexQuestion.test("h")); // true
-console.log(regexQuestion.test("hooo")); // true (solo se toma la primera coincidencia)
+console.log(regexQuestion.test("hla")); // true
+console.log(regexQuestion.test("hooola")); // false
 
 // `{}`: Coincide un número determinado de veces
 console.log("\n Modificador {} ");
@@ -89,8 +89,14 @@ let regexEntre = /a{2,4}/; // Coincide con al menos 2 y máximo 4 apariciones de
 
 console.log(regexExacto.test("Hola")); // false
 console.log(regexExacto.test("Holaaaaa")); // true
-console.log(regexAlMenos.test("Holaaaaaaaaa")); // false
+console.log(regexAlMenos.test("Holaaaaaaaaa")); // true
 console.log(regexEntre.test("Holaaaaaa")); // true
+
+let regexHola = /^hola{3,6}$/;
+console.log(regexHola.test("holaa")); 
+console.log(regexHola.test("holaaaa"));
+console.log(regexHola.test("holaaaaaa"));
+console.log(regexHola.test("holaaaaaaa"));     
 
 // **8. Paréntesis `()`: Agrupar partes de una expresión**
 console.log("\n=== Modificador () ===");
@@ -117,7 +123,7 @@ console.log(regexNumeros.test("10$")); // true
 // **10. Método exec(): Buscar coincidencias**
 console.log("\n=== Método exec() ===");
 let regexExec = /hola/;
-let texto = "Hola mundo, hola JavaScript.";
+let texto = "Hola mundo, hola JavaScript. HOLA!!!";
 let resultado = regexExec.exec(texto); // Busca la primera coincidencia
 console.log(resultado); // Devuelve un objeto con información sobre la coincidencia
 // resultado.index: Posición donde comienza la coincidencia
@@ -130,12 +136,55 @@ if (resultado) {
     console.log("No se encontró ninguna coincidencia.");
 }
 
-console.log("//////////////////////");
+// **11. Método match(): Obtener todas las coincidencias**
+console.log("\n=== Método match() ===");
+let regexMatch = /hola/gi; // g: búsqueda global, i: sin distinguir mayúsculas/minúsculas
+let resultadosMatch = texto.match(regexMatch); // Devuelve un array con todas las coincidencias
+console.log(resultadosMatch); // ["Hola", "hola", "HOLA"]
+
+// **12. Assertions en Expresiones Regulares**
+console.log("=== ASSERTIONS EN REGEX ===");
+// Las assertions permiten definir condiciones para las coincidencias sin incluir esos patrones en el resultado final.
+// Es decir, no consumen caracteres de la cadena, solo verifican condiciones.
+
+// LOOKAHEAD POSITIVO (?=...)
+// Coincide con algo solo si está seguido de otro patrón.
+
+let texto1 = "manzana verde, manzana roja, manzana azul";
+let regexAssert1 = /manzana(?= roja)/g; // Buscar "manzana" solo si va seguida de " roja"
+console.log("\nLookahead positivo (?=...):");
+console.log("Texto:", texto1);
+console.log("Coincidencias:", texto1.match(regexAssert1)); // ["manzana"]
+
+// LOOKAHEAD NEGATIVO (?!...)
+// Coincide con algo solo si NO está seguido de otro patrón.
+
+let regexAssert2 = /manzana(?! roja)/g; // Buscar "manzana" que NO vaya seguida de " roja"
+console.log("\nLookahead negativo (?!...):");
+console.log("Coincidencias:", texto1.match(regexAssert2)); // ["manzana", "manzana"]
+
+// LOOKBEHIND POSITIVO (?<=...)
+// Coincide con algo solo si está precedido de cierto patrón.
+
+let texto2 = "€100, $200, €300, $400";
+let regex3 = /(?<=€)\d+/g; // Buscar números precedidos del símbolo €
+console.log("\nLookbehind positivo (?<=...):");
+console.log("Texto:", texto2);
+console.log("Coincidencias:", texto2.match(regex3)); // ["100", "300"]
+
+// LOOKBEHIND NEGATIVO (?<!...)
+// Coincide con algo solo si NO está precedido de cierto patrón.
+
+let regex4 = /(?<!€)\d+/g; // Buscar números que NO vayan precedidos de €
+console.log("\nLookbehind negativo (?<!...):");
+console.log("Coincidencias:", texto2.match(regex4)); // ["200", "400"]
+
+console.log("\n//////////////////////\n");
 
 console.log("EJERCICIOS DE CLASE");
 
-let regex_telefono = /^\(\+[0-9]{2,3}\)[\d]{9,10}$/;
-let regex_email = /^[\w#\*\+&'!%@\?{}\^"]([\.]?[\w#\*\+&'!%@\?{}\^"])*[^\.]@[\w\.-]+\.\w{2,3}$/;
+let regex_telefono = /./;
+let regex_email = /./;
 
 let telefono1 = "(+34)623456789";
 let telefono2 = "(+432)612345879";

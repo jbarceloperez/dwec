@@ -1,0 +1,61 @@
+<html>
+<head>
+    <title>Ejemplo de validación de un formulario usando expresiones regulares</title>
+    <script>
+    function validaCampos(formulario) {
+        let regex_dni = /./;    
+        let regex_telefono = /./;
+        let regex_email = /./;
+        let regex_ciudad = /./;
+        let regex_codigo_postal = /./;
+        let regex_password = /./;
+
+
+        // Usaremos el método "test" de las expresiones regulares:
+        if(regex_dni.test(formulario.dni.value)==false) {
+            alert('Campo DNI no válido.');
+            return false; // sale de la función y NO envía el formulario
+        }
+        if(regex_telefono.test(formulario.telefono.value)==false) {
+            alert('Campo tfno no válido.');
+            return false; // sale de la función y NO envía el formulario
+        }
+        if(regex_email.test(formulario.email.value)==false) {
+            alert('Campo email no válido.');
+            return false; // sale de la función y NO envía el formulario
+        }
+        if(regex_ciudad.test(formulario.ciudad.value)==false) {
+            alert('Campo ciudad no válido.');
+            return false; // sale de la función y NO envía el formulario
+        }
+        if(regex_codigo_postal.test(formulario.codigo_postal.value)==false) {
+            alert('Campo CP no válido.');
+            return false; // sale de la función y NO envía el formulario
+        }
+        if(regex_password.test(formulario.password.value)==false) {
+            // console.log("No valido");
+            alert('Contraseña no válida.');
+            return false; // sale de la función y NO envía el formulario
+        }
+        
+        alert('Gracias por rellenar nuestro formulario correctamente.');
+        return true; // sale de la función y SÍ envía el formulario
+    }
+    </script>
+</head>
+<body>
+    <h1 class="form-title">Validación de un formulario</h1>
+
+    <form name="formulario" onSubmit="return validaCampos(this)" class="form-container">
+        DNI:<input type="text" name="dni"><br><br>
+        Teléfono: <input type="text" name="telefono"><br><br>
+        Email: <input type="text" name="email"><br><br>
+        Ciudad: <input type="text" name="ciudad"><br><br>
+        Código postal: <input type="text" name="codigo_postal"><br><br>
+        Contraseña: <input type="text" name="password"><br><br>
+
+
+        <input type="submit" value="Enviar" name="enviar">
+    </form>
+</body>
+</html>
