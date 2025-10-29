@@ -92,6 +92,7 @@ console.log(regexExacto.test("Holaaaaa")); // true
 console.log(regexAlMenos.test("Holaaaaaaaaa")); // true
 console.log(regexEntre.test("Holaaaaaa")); // true
 
+// Ahora ya no da true, porque acaba y empieza por ese patron
 let regexHola = /^hola{3,6}$/;
 console.log(regexHola.test("holaa")); 
 console.log(regexHola.test("holaaaa"));
@@ -113,6 +114,11 @@ console.log(regexOr.test("hola")); // true
 console.log(regexOr.test("adios")); // true
 console.log(regexOr.test("hasta luego")); // false
 
+let regexOrComplex = /(hola|adios) mundo/; // Coincide con "hola mundo" o "adios mundo"
+console.log(regexOrComplex.test("hola mundo")); // true
+console.log(regexOrComplex.test("adios mundo")); // true
+console.log(regexOrComplex.test("hola adios")); // false
+
 // Existen otras maneras predefinidas de expresar conjuntos de caracteres
 let regexEscape = /10\$/;
 let regexNumeros = /\d/;    // Equivalente a /[0-9]/
@@ -122,8 +128,8 @@ console.log(regexNumeros.test("10$")); // true
 
 // **10. Método exec(): Buscar coincidencias**
 console.log("\n=== Método exec() ===");
-let regexExec = /hola/;
-let texto = "Hola mundo, hola JavaScript. HOLA!!!";
+let regexExec = /hola+/;
+let texto = "Hola mundo, holaaaaaaaaaaaaaaa JavaScript. HOLA!!!";
 let resultado = regexExec.exec(texto); // Busca la primera coincidencia
 console.log(resultado); // Devuelve un objeto con información sobre la coincidencia
 // resultado.index: Posición donde comienza la coincidencia
@@ -138,7 +144,7 @@ if (resultado) {
 
 // **11. Método match(): Obtener todas las coincidencias**
 console.log("\n=== Método match() ===");
-let regexMatch = /hola/gi; // g: búsqueda global, i: sin distinguir mayúsculas/minúsculas
+let regexMatch = /hola+/gi; // g: búsqueda global, i: sin distinguir mayúsculas/minúsculas
 let resultadosMatch = texto.match(regexMatch); // Devuelve un array con todas las coincidencias
 console.log(resultadosMatch); // ["Hola", "hola", "HOLA"]
 
@@ -183,9 +189,11 @@ console.log("\n//////////////////////\n");
 
 console.log("EJERCICIOS DE CLASE");
 
-let regex_telefono = /./;
-let regex_email = /./;
-
+// let regex_telefono = /./;
+let regex_email = /^[\w#\*\+&'!%\?{\^}"]{1}(\.?[\w#\*\+&'!%@\?{}\^"])*@[\w\.-]+\.[a-z]{2,}$/;
+let regex_telefono = /^\(\+\d{1,3}\)\d{9,12}$/;
+console.log(regex_email.test("j+&'!.%.#.*@gmail.com"));
+console.log(regex_telefono.test("(+1)4485693217"));
 let telefono1 = "(+34)623456789";
 let telefono2 = "(+432)612345879";
 
