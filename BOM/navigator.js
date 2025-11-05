@@ -12,3 +12,11 @@ infoNavigator += "onLine: " + navigator.onLine + "\n";
 infoNavigator += "storage: " + navigator.storage + "\n";
 infoNavigator += "userAgent: " + navigator.userAgent + "\n";
 console.log(infoNavigator);
+
+console.log(navigator.geolocation);
+
+navigator.clipboard
+  .readText()
+  .then(text => {
+    console.log("Texto leído del portapapeles: ", text);
+  });

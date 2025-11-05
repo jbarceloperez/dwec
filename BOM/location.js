@@ -7,10 +7,10 @@ console.log("=== Objeto location ===");
 console.log("URL actual: ", location.href);
 
 // Redirigir al usuario a otra página (descomentar para probar)
-location.assign("https://www.google.com");
+// location.assign("https://www.google.com");
 
 // Recargar la página (descomentar para probar)
-location.reload();
+// location.reload();
 
 // Propiedades detalladas del objeto location
 console.log("URL completa: ", location.href);
@@ -25,7 +25,9 @@ console.log("Protocolo utilizado: ", location.protocol); // Ejemplo: "https:"
 // Ejemplo práctico de redirección basada en protocolo
 if (location.protocol !== "https:") {
     console.warn("Advertencia: No estás utilizando un protocolo seguro. Redirigiendo a HTTPS...");
-    location.replace("https://" + location.host + location.pathname);
+    // setTimeout(() => {
+    //     location.replace("https://" + location.host + location.pathname);
+    // }, 3000);
 }
 
 // ============================
@@ -39,13 +41,13 @@ console.log("Historial de navegación: ", history);
 console.log("Entradas en el historial: ", history.length);
 
 // Ir a la página anterior (descomentar para probar)
-history.back();
+// history.back();
 
 // Ir a la página siguiente (descomentar para probar)
-history.forward();
+// history.forward();
 
 // Navegar n páginas en el historial (descomentar para probar)
-history.go(-2); // Retrocede 2 páginas
+// history.go(-2); // Retrocede 2 páginas
 
 
 

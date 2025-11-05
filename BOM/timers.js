@@ -4,9 +4,10 @@
 console.log("=== Temporizadores ===");
 
 // Ejecutar después de 3 segundos
-const timeoutId = setTimeout(() => {
+let callback = () => {
     console.log("Han pasado 3 segundos desde que se cargó el script.");
-}, 3000);
+};
+const timeoutId = setTimeout(callback, 3000);
   
 // Repetir cada 2 segundos
 const intervalId = setInterval(() => {
@@ -14,13 +15,13 @@ const intervalId = setInterval(() => {
 }, 2000);
 
 // Detener el temporizador después de 10 segundos
-const segundoTimeout = setTimeout(() => {
+setTimeout(() => {
     clearInterval(intervalId);
     console.log("Intervalo detenido después de 10 segundos.");
 }, 10000);
 
 // Cancelar el primer temporizador
-clearTimeout(segundoTimeout);
+clearTimeout(timeoutId);
 
 // Temporizador con retraso personalizado
 function temporizadorPersonalizado(mensaje, delay) {
@@ -28,7 +29,7 @@ function temporizadorPersonalizado(mensaje, delay) {
         console.log(mensaje);
     }, delay);
 }
-temporizadorPersonalizado("Este mensaje aparece después de 2 segundos", 2000);
+temporizadorPersonalizado("Este mensaje aparece después de 3,5 segundos", 3500);
 
 // Temporizador que se detiene dinámicamente
 let contador = 0;
@@ -46,6 +47,9 @@ setTimeout(() => {
     setTimeout(() => {
         console.log("Segundo temporizador ejecutado dentro del primero");
     }, 2000);
+    setTimeout(() => {
+        console.log("Tercer temporizador ejecutado dentro del primero");
+    }, 3000);
 }, 3000);
 
 // Temporizador con función flecha
@@ -56,6 +60,6 @@ setTimeout(() => {
     console.log("Redirigiendo a un sitio web en 5 segundos...");
     setTimeout(() => {
         console.log("Redirección realizada.");
-        location.assign("https://developer.mozilla.org");
+        // location.assign("https://developer.mozilla.org");
     }, 5000);
 }, 2000);
