@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ejemplo DOM</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            margin-left: 30%;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        margin-left: 30%;
+      }
 
-        .resaltado {
-            color: #37ff0a;
-            font-weight: bold;
-        }
+      .resaltado {
+        color: #37ff0a;
+        font-weight: bold;
+      }
+
+      .highlight {
+        background-color: yellow;
+        color: red;
+      }
     </style>
-    
-</head>
-<body>
+  </head>
+  <body>
     <h1 id="titulo" data-curso="JavaScript">Título Principal</h1>
     <p class="descripcion">Esta es una descripción inicial.</p>
     <ul id="lista">
-        <li class="elemento">Elemento 1</li>
-        <li class="element">Element 2</li>
-        <li class="elemento">Elemento 3</li>
-        <li class="element">Element 4</li>
+      <li class="elemento">Elemento 1</li>
+      <li class="element">Elemento 2</li>
+      <li class="elemento">Elemento 3</li>
+      <li class="element">Elemento 4</li>
     </ul>
     <button id="boton-cambiar">Cambiar Contenido</button>
     <button id="boton-resaltar">Resaltar Elementos</button>
     <button id="boton-estilos">Cambiar Estilos</button>
     <button id="boton-cookies">Gestionar Cookies</button>
-    <input id="entrada" type="text" placeholder="Escribe algo...">
+    <input id="entrada" type="text" placeholder="Escribe algo..." />
     <p id="resultado"></p>
     <script src="dom.js"></script>
-</body>
+  </body>
 </html>
