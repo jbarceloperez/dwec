@@ -132,17 +132,23 @@ const btnEliminar = document.getElementById("btn-eliminar");
 btnCrear.addEventListener("click", () => {
   // Crear un nuevo elemento <li>
   const nuevoElemento = document.createElement("li");
-
   // Obtener el valor del input
-  const nombre = entrada.value;
-
+  const textoLi = entrada.value;
   // Añadir el texto dentro del elemento
-  nuevoElemento.textContent = nombre;
-
+  nuevoElemento.textContent = textoLi;
   // Añadir el elemento al final de la lista
   lista.appendChild(nuevoElemento);
+  console.log(`Se ha añadido "${textoLi}" a la lista.`);
+});
 
-  console.log(`Se ha añadido "${nombre}" a la lista.`);
+// Añadir nuevo nodo con insertBefore
+btnCrear.addEventListener("click", () => {
+  // Crear un nuevo elemento <li>
+  const nuevoElemento = document.createElement("li");
+  const textoLi = entrada.value;
+  nuevoElemento.textContent = textoLi;
+  // Insertar el nuevo elemento antes del hijo que seleccionemos
+  lista.insertBefore(nuevoElemento, lista.children[2]);
 });
 
 // Eliminar un nodo del DOM
@@ -161,7 +167,7 @@ btnEliminar.addEventListener("click", () => {
 // Modificar un nodo del DOM
 // Modificamos el primer <li> de la lista.
 btnModificar.addEventListener("click", () => {
-  const primerElemento = lista.firstElementChild;;
+  const primerElemento = lista.firstElementChild;
   if (!primerElemento) {
     console.warn("No hay elementos para modificar.");
     return;
@@ -198,7 +204,7 @@ botonCookies.addEventListener("click", () => {
 // Ejercicio cookie count
 
 let cont = 0;
- // Función para obtener el valor de una cookie por su nombre
+// Función para obtener el valor de una cookie por su nombre
 function getCookie(name) {
   const cookies = document.cookie.split("; "); // Divide las cookies en un array
   for (let i = 0; i < cookies.length; i++) {
@@ -215,6 +221,10 @@ if (getCookie("contador") === null) {
 }
 else {
   cont = parseInt(getCookie("contador"));
+}
+if (cont > 0) {
+  let bienvenida = document.getElementById("bienvenida");
+  bienvenida.textContent = `Bienvenido de nuevo! Has visitado esta página ${cont + 1} veces.`;
 }
 cont += 1;
 document.cookie = `contador=${cont}`;
