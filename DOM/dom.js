@@ -14,13 +14,12 @@ console.log("Elemento seleccionado por ID:", titulo);
 const descripcion = document.querySelector(".descripcion");
 console.log("Elemento seleccionado por clase (querySelector):", descripcion);
 
-// // Selección de múltiples elementos con querySelectorAll
-const elementos = document.querySelectorAll("ul > li.elemento");
+// Selección de múltiples elementos con querySelectorAll
+const elementos = document.querySelectorAll("li.elemento");
 console.log("Elementos seleccionados por clase (querySelectorAll):", elementos);
 
-const elements = document.querySelectorAll("ul > li.element");
+const elements = document.querySelectorAll("li");
 console.log("Elementos seleccionados por clase (querySelectorAll):", elements);
-
 
 // Modificación de elementos
 
@@ -37,7 +36,10 @@ console.log("Nuevo contenido HTML de la descripción:", descripcion.innerHTML);
 // Modificar los atributos de un elemento
 const entrada = document.getElementById("entrada");
 entrada.setAttribute("placeholder", "Introduce un nuevo texto...");
-console.log("Nuevo atributo 'placeholder' de la entrada:", entrada.getAttribute("placeholder"));
+console.log(
+  "Nuevo atributo 'placeholder' de la entrada:",
+  entrada.getAttribute("placeholder")
+);
 
 // ============================
 // Ejemplo práctico: interacción con botones
@@ -45,25 +47,25 @@ console.log("Nuevo atributo 'placeholder' de la entrada:", entrada.getAttribute(
 
 // Botón para cambiar contenido de los elementos de la lista
 document.getElementById("boton-cambiar").addEventListener("click", () => {
-    elementos.forEach((elemento, index) => {
-        elemento.textContent = `Elemento modificado ${index + 1}`;
-    });
-    console.log("Elementos de la lista modificados.");
+  elementos.forEach((elemento, index) => {
+    elemento.textContent = `Elemento modificado ${index + 1}`;
+  });
+  console.log("Elementos de la lista modificados.");
 });
 
 // Botón para resaltar elementos
 document.getElementById("boton-resaltar").addEventListener("click", () => {
-    elements.forEach((elemento) => {
-        elemento.classList.add("resaltado");
-    });
-    console.log("Se añadieron clases de resaltado a los elementos.");
+  elements.forEach((elemento) => {
+    elemento.classList.add("resaltado");
+  });
+  console.log("Se añadieron clases de resaltado a los elementos.");
 });
 
 // Mostrar el texto introducido en el campo de entrada
 entrada.addEventListener("input", () => {
-    const resultado = document.getElementById("resultado");
-    resultado.textContent = `Has escrito: ${entrada.value}`;
-    console.log("Texto actual en el input:", entrada.value);
+  const resultado = document.getElementById("resultado");
+  resultado.textContent = `Has escrito: ${entrada.value}`;
+  console.log("Texto actual en el input:", entrada.value);
 });
 
 // Recorrido del DOM
@@ -73,8 +75,8 @@ for(let i=0; i<lista.children.length; i++) {
     console.log("Elemento hijo:", lista.children[i]);
 }
 
-console.log(lista.nextSibling);         // este recorre el arbol html completo
-console.log(lista.nextElementSibling);  // este recorre solo los elementos del arbol
+console.log(lista.nextSibling); // este recorre el arbol html completo
+console.log(lista.nextElementSibling); // este recorre solo los elementos del arbol
 console.log(lista.previousElementSibling);
 
 // ========================
@@ -118,13 +120,64 @@ botonEstilos.addEventListener("click", () => {
   console.log("Estilos CSS modificados.");
 });
 
+// ==================================
+// Manipulación de Elementos del DOM
+// ==================================
+
+const btnCrear = document.getElementById("btn-crear");
+const btnModificar = document.getElementById("btn-modificar");
+const btnEliminar = document.getElementById("btn-eliminar");
+
+// Crear un nuevo nodo y añadirlo al DOM
+btnCrear.addEventListener("click", () => {
+  // Crear un nuevo elemento <li>
+  const nuevoElemento = document.createElement("li");
+
+  // Obtener el valor del input
+  const nombre = entrada.value;
+
+  // Añadir el texto dentro del elemento
+  nuevoElemento.textContent = nombre;
+
+  // Añadir el elemento al final de la lista
+  lista.appendChild(nuevoElemento);
+
+  console.log(`Se ha añadido "${nombre}" a la lista.`);
+});
+
+// Eliminar un nodo del DOM
+// Eliminamos el último <li> de la lista.
+btnEliminar.addEventListener("click", () => {
+  const ultimoElemento = lista.lastElementChild;
+  if (!ultimoElemento) {
+    console.warn("No hay elementos para eliminar.");
+    return;
+  }
+
+  lista.removeChild(ultimoElemento);
+  console.log("Se ha eliminado el último elemento de la lista.");
+});
+
+// Modificar un nodo del DOM
+// Modificamos el primer <li> de la lista.
+btnModificar.addEventListener("click", () => {
+  const primerElemento = lista.firstElementChild;;
+  if (!primerElemento) {
+    console.warn("No hay elementos para modificar.");
+    return;
+  } 
+  const nuevoNombre = entrada.value;
+  primerElemento.textContent = nuevoNombre;
+  console.log(`El primer elemento ha sido modificado a "${nuevoNombre}".`);
+});
+
 // ========================
 // Manipulación de Cookies
 // ========================
 
 // Crear una cookie
 document.cookie = "usuario=Estudiante; max-age=60; path=/";
-document.cookie = "idioma=es; expires=Fri, 31 Dec 2025 23:59:59 GMT";
+document.cookie = "idioma=es; expires=Fri, 3 Dec 2025 23:59:59 GMT";
 document.cookie = "tema=claro";
 
 const botonCookies = document.getElementById("boton-cookies");
@@ -166,4 +219,3 @@ else {
 cont += 1;
 document.cookie = `contador=${cont}`;
 console.log(`Esta página se ha cargado ${cont} veces.`);
-
