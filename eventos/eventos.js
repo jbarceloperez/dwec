@@ -3,6 +3,11 @@
 // Introducción a Eventos
 // ========================
 
+// Objeto Evento
+document.querySelector("h1").addEventListener("click", (evento) => {
+  console.log(evento);
+});
+
 // Escuchar un evento y propagación de eventos
 const clicks = document.getElementById("contador");
 let count = 0;
@@ -13,12 +18,11 @@ clicks.addEventListener("click", (event) => {
     if (count > 4) {   
         event.stopPropagation();   // al llegar a 4 clicks, detiene la propagación de eventos
     }
-
 }); // añadir true como ultimo argumento tras la función
 
-let miSection = document.getElementsByTagName("section")[0];
-let miP = document.getElementsByTagName("p")[1];
-// // contador es el elemento span, en la variable clicks
+let miSection = document.querySelector("section");
+let miP = document.querySelector("p");
+// contador es el elemento span, en la variable clicks
 
 miSection.addEventListener("click", () => {
     console.log("Click en <section>");
@@ -28,7 +32,7 @@ miP.addEventListener("click", () => {
 }); // añadir true como ultimo argumento tras la función
 
 // Aunque haya definido primero el evento del span, luego el del section y luego el del p,
-// el evento del span se ejecuta primero, luego el del p y luego el del section. Esto es
+// el evento del span se ejecuta primero, luego el del p y luego el del section. Esto es 
 // porque se ejecutan desde dentro hacia fuera, desde el elemento más interno al más externo.
 
 // Usando true como siguiente argumento invierto el orden de ejecución de los eventos.
@@ -81,16 +85,16 @@ const eventoPersonalizado = new Event("miEvento");
 botonLanzarEvento.addEventListener("miEvento", (event) => {
   console.log("¡Evento personalizado lanzado!");
   console.log("Detalles del evento:");
-    console.log("Tipo de evento: ", event.type);
-    console.log("Elemento objetivo: ", event.target);
+  console.log("Tipo de evento: ", event.type);
+  console.log("Elemento objetivo: ", event.target);
 });
 
 botonLanzarEvento.addEventListener("click", (event) => {
   // Lanzar el evento personalizado
   botonLanzarEvento.dispatchEvent(eventoPersonalizado);
   console.log("Detalles del evento:");
-    console.log("Tipo de evento: ", event.type);
-    console.log("Elemento objetivo: ", event.target);
+  console.log("Tipo de evento: ", event.type);
+  console.log("Elemento objetivo: ", event.target);
 });
 
 
@@ -107,7 +111,8 @@ setTimeout(() => {
 const formulario = document.getElementById("formulario-ejemplo");
 
 // Escuchar el evento submit para enviar el formulario
-formulario.addEventListener("submit", function () {
+formulario.addEventListener("submit", function (event) {
+  event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
   console.log("Formulario enviado con los siguientes datos:");
   console.log("Nombre: ", formulario.elements["nombre"].value);
   console.log("Email: ", formulario.elements["email"].value);
@@ -120,13 +125,9 @@ formulario.addEventListener("reset", function (event) {
 });
 
 // Cambiar valores de un campo de forma programática
-formulario.elements["nombre"].value = "Valor predefinido";
+formulario.elements["nombre"].value = "Nombre de ejemplo";
 
-
-// ===========================
 // Propiedades y métodos de formularios
-// ===========================
-
 console.log("Action del formulario:", formulario.action);
 console.log("Número de elementos:", formulario.length);
 console.log("Elementos del formulario:", formulario.elements);
@@ -145,10 +146,9 @@ botonClick.addEventListener("contextmenu", (e) => {
   e.preventDefault();   // elimina la acción del evento por defecto
   console.log("Menú contextual bloqueado.");
 });
+botonClick.addEventListener("mouseup", () => console.log("Botón liberado"));
 
-// eventos con la posición del cursor
-// botonClick.addEventListener("mouseup", () => console.log("Botón liberado"));
-
+// Eventos con la posición del cursor
 
 // Diferencias entre mouseover y mouseenter
 botonClick.addEventListener("mouseover", () => console.log("mouseover: entra, incluye elementos hijos"));
@@ -163,9 +163,7 @@ areaRaton.addEventListener('mousemove', (e) => {
 areaRaton.addEventListener("mouseenter", () => console.log("Cursor entra en el area"));
 areaRaton.addEventListener("mouseleave", () => console.log("Cursor sale del area"));
 
-// // Elementos coloreados
-// // TODO hacer en clase
-
+// Elementos coloreados
 let elementos = document.getElementById('coloreados');
 for (let i=0; i < elementos.children.length; i++) {
   elementos.children[i].addEventListener("mouseover", (e) => {
@@ -179,7 +177,6 @@ for (let i=0; i < elementos.children.length; i++) {
     elementos.children[i].style.backgroundColor = "white";
   });
 }
-
 
 // ===========================
 // Eventos del Teclado
@@ -243,7 +240,11 @@ window.addEventListener("resize", () => console.log("Ventana redimensionada."));
 
 // Evento del portapapeles
 window.addEventListener("copy", () => console.log("Contenido copiado al portapapeles."));
-window.addEventListener("paste", () => console.log("Contenido pegado desde el portapapeles."));
+window.addEventListener("paste", (e) => 
+  {
+    e.preventDefault();
+    console.log("Contenido pegado desde el portapapeles.")
+  });
 window.addEventListener("cut", () => console.log("Contenido cortado al portapapeles."));
 
 // Ejemplo scroll
@@ -262,11 +263,6 @@ botondoc.addEventListener("click", () => {
 Crea una rutina que no permita que el ratón se coloque encima de una caja 
 azul de 100x100 px. Cada vez que el ratón intente colocarse 
 encima, la posición de la caja debe cambiar aleatoriamente por la página.
-*/
 
-// Ej2
-/*
-Crea una aplicación que contenga un párrafo con mucho texto. 
-Debajo del párrafo debe haber un botón por cada vocal.
-Al pulsar sobre una vocal, esa vocal desaparecerá del texto.
+(Para nota: hacedlo con un transform/translate)
 */
