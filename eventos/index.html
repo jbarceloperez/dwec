@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos en JavaScript</title>
+    <style>
+        .container {
+      border: 1px solid black;
+      padding: 10px;
+      margin: 10px;
+    }
+    .draggable {
+      width: 100px;
+      height: 100px;
+      background-color: lightblue;
+      border: 2px solid darkblue;
+      cursor: move;
+    }
+    </style>
+</head>
+<body>
+  <h1>Eventos en JavaScript</h1>
+  <section>
+    <p>Clicks: <span id="contador">0</span></p>
+  </section>
+  <div id="contenedor" class="container">
+    <p id="inner-element">Haz clic aquí para ver propagación de eventos.</p>
+  </div>
+  <button id="lanzar-evento">Lanzar un evento personalizado</button>
+  
+  <h2>Formulario</h2>
+  <form id="formulario-ejemplo" action="#">
+    <label>Nombre: <input type="text" name="nombre" id="nombre" placeholder="Introduce tu nombre" required></label>
+    <label>Email: <input type="email" name="email" id="email"></label>
+    <button type="submit">Enviar</button>
+    <button type="reset">Resetear</button>
+  </form>
+
+  <h2>Eventos del Ratón</h2>
+  <button id="boton-click">Haz clic</button>
+  <div id="area-raton" style="width: 300px; height: 100px; background-color: lightgray; border: 1px solid black; margin-top: 10px;">
+    Mueve el ratón por esta área.
+  </div>
+
+  <section id="coloreados">
+    <h2>Elementos coloreados</h2>
+    <p>Párrafo 1.</p>
+    <ul>
+      <li>Elemento 1</li>
+      <li>Elemento 2</li>
+      <li>Elemento 3</li>
+    </ul>
+    <p>Párrafo 2.</p>
+    <button>Botón de ejemplo</button>
+  </section>
+
+  <h2>Eventos de Teclado</h2>
+  <input type="text" id="campo-teclado" placeholder="Escribe algo...">
+
+  <h2>Elemento Arrastrable</h2>
+  <div id="elemento-draggable" class="draggable" draggable="true">Arrástrame</div>
+  <div id="area-drop" style="width: 300px; height: 100px; background-color: lightyellow; border: 2px dashed black; margin-top: 10px;">
+    Suelta aquí el elemento.
+  </div>
+
+  <h2>Reproducción Multimedia</h2>
+  <audio id="audio-ejemplo" controls>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
+
+  <h2>Otros Eventos</h2>
+  <button id="boton-scroll">Desplázate hacia abajo</button>
+  <button id="boton-doc">Documentación sobre Eventos</button>
+  <div style="height: 2000px;"></div>
+
+  <footer class="footer"> 
+    Final de la página.
+  </footer>
+  <script src="eventos.js">  </script>
+</body>
+</html>
