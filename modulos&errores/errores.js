@@ -12,7 +12,14 @@ export class DividirPor0Exception extends AritmeticException {
     }
 }
 
-class ValidacionException extends Error {
+export class FileSystemException extends Error {
+    constructor(mensaje) {
+        super(mensaje);
+        this.name = "FileSystemException";
+    }
+}
+
+export class ValidacionException extends Error {
     constructor(mensaje) {
         super(mensaje);                      
         this.name = "ValidacionException";
@@ -26,4 +33,10 @@ export class MiExcepcion extends Error {
     }
 }
 
-
+// es equivalente
+// export {
+//     AritmeticException,
+//     DividirPor0Exception,
+//     FileSystemException,
+//     MiExcepcion
+// }

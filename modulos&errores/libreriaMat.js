@@ -1,5 +1,5 @@
 
-export const pi = 3.1416;
+const pi = 3.1416;
 const e = 1.68;
 
 export function areaCirculo(radio) {
@@ -12,4 +12,9 @@ export function areaRectangulo(base, altura) {
 
 export function areaTriangulo(base, altura) {
     return (base * altura) / 2
+}
+
+export {
+    pi,
+    e
 }

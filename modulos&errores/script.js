@@ -1,5 +1,5 @@
-import * as er from "./errores.js";
-import { areaCirculo, areaRectangulo, pi } from "./libreriaMat.js";
+import {DividirPor0Exception, FileSystemException, MiExcepcion} from "./errores.js";
+import { areaCirculo, e } from "./libreriaMat.js"
 
 // 1. CREACIÓN Y LANZAMIENTO DE ERRORES
 
@@ -12,7 +12,7 @@ console.log("Mensaje del error:", customError.message);  // Propiedad "message"
 // Ejemplo de lanzamiento explícito de un error
 function dividir(a, b) {
     if (b === 0) {
-        throw new er.DividirPor0Exception("No se puede dividir por cero.");
+        throw new DividirPor0Exception("No se puede dividir por cero.");
     }
     return a / b;
 }
@@ -53,10 +53,13 @@ procesarTexto("Hola, mundo!"); // Funciona correctamente
 function leerArchivo() {
     try {
         console.log("Intentando leer archivo...");
-        // throw new Error("Archivo no encontrado.");
+        throw new FileSystemException("Archivo no encontrado.");
         console.log("se ha leido el archivo");
     } catch (error) {
-        console.error("Error durante la lectura:", error.message);
+        if (error instanceof FileSystemException)
+            console.error("Error durante la lectura:", error.message);
+        else 
+            console.error(error);
     } finally {
         console.log("Operación finalizada. Recurso cerrado.");
     }
@@ -65,30 +68,29 @@ function leerArchivo() {
 leerArchivo();
 
 
-// MODO ESTRICTO ("strict mode")
+// // MODO ESTRICTO ("strict mode")
 
 
-/*
-El modo estricto (strict mode) ayuda a escribir un código más seguro y libre de errores.
-Prohíbe ciertas malas prácticas y lanza errores donde antes simplemente se ignoraban.
-*/
+// /*
+// El modo estricto (strict mode) ayuda a escribir un código más seguro y libre de errores.
+// Prohíbe ciertas malas prácticas y lanza errores donde antes simplemente se ignoraban.
+// */
 {
-    'use strict';  // Activa el modo estricto para este bloque de código
+    // 'use strict';  // Activa el modo estricto para este bloque de código
 
-    // Sin modo estricto, declarar variables sin "let", "const" o "var" es válido
-    // Con strict mode, provoca un error
-    cadena = "10"; // ReferenceError: x is not defined
-        
-
+    // // Sin modo estricto, declarar variables sin "let", "const" o "var" es válido
+    // // Con strict mode, provoca un error
+    // cadena = "hola"; // ReferenceError: cadena is not defined
+    // console.log(cadena)
+    // let cadena = "adios";
 }
-
 
 // Algunos de los errores concretos de JavaScript:
 
 // RangeError: Se produce cuando un valor está fuera del rango permitido.
 try {
     let arr = new Array(-1); // No puede tener tamaño negativo
-} catch (error) {
+} catch (error) { 
     if (error instanceof RangeError) {
         console.error("Se ha producido un RangeError:", error.message);
     }
@@ -147,20 +149,16 @@ manejarErrores();
 
 
 try {
-    throw new er.MiExcepcion("Este es un error personalizado.");
+    throw new MiExcepcion("Este es un error personalizado.");
 } catch (error) {
     console.error(`Capturado: ${error.name} - ${error.message}`);
 }
 
-
-
 //////////////////
 console.log("MATEMATICAS");
 
-let radio1 = 1;
-let radio2 = 15;
-console.log(areaCirculo(radio1));
-console.log(areaCirculo(radio2));
-console.log(areaRectangulo(10,5));
+console.log(areaCirculo(e));
 
-let miPi = pi;
+if (typeof areaCirculo === "undefined") {
+    console.log("El área del círculo con radio e es:", areaCirculo(e));
+}
