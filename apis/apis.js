@@ -25,8 +25,11 @@ console.log("===== Ejemplo 1: localStorage =====");
 // Guardar datos en localStorage
 localStorage.setItem("nombre", "Juan");
 localStorage.setItem("edad", "25");
+localStorage.setItem("nombre", "Javi"); // Sobrescribe el valor anterior
 
-// // Leer datos
+document.cookie = "usuario=Estudiante; max-age=60; path=/";
+
+// Leer datos
 const nombre = localStorage.getItem("nombre");
 const edad = localStorage.getItem("edad");
 
@@ -64,14 +67,18 @@ console.log(`Número de elementos tras clear(): ${localStorage.length}`); // 0
 // =============================================
 console.log("===== Ejemplo 3: sessionStorage =====");
 
-sessionStorage.setItem("usuario", "María");
+document.getElementById("btn").addEventListener("click", () => {
+    sessionStorage.setItem("usuario", "María");
+});
 console.log(`Usuario en sesión: ${sessionStorage.getItem("usuario")}`); // María
 
-// // Si cerramos la pestaña, la información desaparece.
+// Si cerramos la ventana, la información desaparece.
 
 // =============================================
 // API Geolocation
 // =============================================
+
+console.log("\n===== API Geolocation =====");
 
 // Verificación de compatibilidad
 if (navigator.geolocation) {
@@ -205,6 +212,7 @@ function mostrarError(error) {
 // API Notification
 // =============================================
 
+console.log("\n===== API Notification =====");
 // Comprobación de compatibilidad con el navegador
 if (!("Notification" in window)) {
     console.error("Las notificaciones no son compatibles con este navegador.");
@@ -226,40 +234,35 @@ function solicitarPermiso(callback, titulo, cuerpo) {
 
 // Función para mostrar una notificación básica
 function mostrarNotificacion(titulo, cuerpo) {
-    if (Notification.permission === "granted") {
-        const opciones = {
-            body: cuerpo,
-            icon: "https://via.placeholder.com/100", // Icono opcional para la notificación
-        };
-        const notificacion = new Notification(titulo, opciones);
+    const opciones = {
+        body: cuerpo,
+        icon: "https://picsum.photos/200", // Icono opcional para la notificación
+        image: "https://picsum.photos/600/300", // Imagen opcional para la notificación
+    };
 
-        // Eventos asociados a la notificación
-        notificacion.onclick = () => {
-            console.log("La notificación fue clicada.");
-        };
+    // Fijaos que no necesitamos lanzar la notificacion, sino que
+    // al crear el objeto Notification ya se muestra
+    const notificacion = new Notification(titulo, opciones);
 
-        notificacion.onclose = () => {
-            console.log("La notificación se cerró.");
-        };
+    // Eventos asociados a la notificación
+    notificacion.onclick = () => {
+        console.log("La notificación fue clicada.");
+    };
 
-        setTimeout(() => notificacion.close(), 5000); // Cierra la notificación tras 5 segundos
-    } else {
-        console.warn("Permiso para notificaciones no concedido.");
-    }
+    notificacion.onclose = () => {
+        console.log("La notificación se cerró.");
+    };
+
+    setTimeout(() => notificacion.close(), 5000); // Cierra la notificación tras 5 segundos
 }
 
-// Crear y personalizar varias notificaciones
-function mostrarNotificacionesVariadas() {
-    mostrarNotificacion("Bienvenido", "Gracias por visitar nuestro sitio web.");
-    setTimeout(() => {
-        mostrarNotificacion(
-            "Actualización",
-            "Hay nuevas noticias disponibles."//
-        );
-    }, 3000);
-}
-
-// mostrarNotificacionesVariadas();
 // Ejemplo: solicitar permiso y mostrar notificaciones secuenciales
-solicitarPermiso(mostrarNotificacion, "Hola", "Cuerpo de la notificación");
-//   mostrarNotificacion("Bienvenido", "Gracias por visitar nuestro sitio web.");
+solicitarPermiso(mostrarNotificacion, "Bienvenido", "Gracias por visitar nuestro sitio web.");
+
+setTimeout(() => {
+    mostrarNotificacion(
+        "Actualización",
+        "Hay nuevas noticias disponibles."//
+    );
+}, 3000);
+
