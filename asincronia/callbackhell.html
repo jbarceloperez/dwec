@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Asincrona</title>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 95vh;
+                background-color: #f0f0f0;
+                flex-direction: column;
+            }
+            .palabra {
+                font-size: 3em;
+                margin: 10px;
+                opacity: 0;
+                transition: opacity 0.5s ease-in-out;
+            }
+            .animar {
+                opacity: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 class="palabra">El</h2>
+        <h2 class="palabra">Callback</h2>
+        <h2 class="palabra">Hell</h2>
+
+        <script>
+            /*
+                PROGRAMACIÓN ASÍNCRONA EN JAVASCRIPT
+
+                Con lo que sabemos hasta ahora, podemos programar de forma síncrona. Es decir,
+                línea a línea, esperando a que cada instrucción termine para ejecutar la siguiente.
+                Pero JavaScript nos permite programar de forma asíncrona, es decir, podemos iniciar
+                una tarea y mientras esperamos a que termine, podemos ejecutar otras tareas.
+
+                Una forma común de programar de forma asíncrona en JavaScript es mediante el uso
+                de funciones como setTimeout, que nos permiten ejecutar una función después de un
+                cierto tiempo sin bloquear la ejecución del resto del código.
+                
+                Los callbacks son funciones que se pasan como parámetros a otras funciones y se ejecutan
+                cuando una tarea asíncrona ha finalizado. Este patrón permite manejar tareas asíncronas 
+                de manera secuencial. Cuando la primera tarea termina, se ejecuta el callback para la 
+                segunda tarea. Sin embargo, esto puede llevar a un código difícil de leer y mantener 
+                si no se maneja adecuadamente: el callback hell.
+
+                En este ejemplo, vamos a animar tres palabras una tras otra con un retraso de 1 segundo:
+            */
+            let palabras = document.querySelectorAll(".palabra");
+
+            let animar = (palabra) => {
+                palabra.classList.add("animar");
+            };
+
+            let animarPalabras = (animar) => {
+                setTimeout(() => {
+                    animar(palabras[0]);
+                    setTimeout(() => {
+                        animar(palabras[1]);
+                        setTimeout(() => {
+                            animar(palabras[2]);
+                        }, 1000);
+                    }, 1000);
+                }, 1000);
+            };
+
+            animarPalabras(animar);
+
+            // Alternativamente, podríamos usar Promesas para manejar la asincronía de una manera más limpia.
+
+            let animarConPromesa = (palabra, delay) => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        palabra.classList.add("animar");
+                        resolve();
+                    }, delay);
+                });
+            };
+
+            let animarPalabrasConPromesas = async () => {
+                for (let palabra of palabras) {
+                    await animarConPromesa(palabra, 1000);
+                }
+            };
+
+            // Descomenta la siguiente línea para ver la animación con Promesas
+            // animarPalabrasConPromesas();
+        </script>
+    </body>
+</html>
