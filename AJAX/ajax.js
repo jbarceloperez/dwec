@@ -4,8 +4,9 @@
 fetch('https://jsonplaceholder.typicode.com/posts/1')
   .then(response => {
     if (!response.ok) {
-      throw new Error(`Error en la petición: ${response.statusText}`);
+      throw new Error(`[STATUS ${response.status}] Error en la petición: ${response.statusText}`);
     }
+    console.log('Respuesta recibida:', response);
     return response.json();
   })
   .then(data => {
@@ -90,11 +91,10 @@ fetch('https://jsonplaceholder.typicode.com/posts', {
 
 //-----------------------------------------------------
 
-// // **Envío de datos de un formulario:**
-// const formData = new FormData();
-// formData.append('nombre', 'Juan');
-// formData.append('edad', 30);
-
+// **Envío de datos de un formulario:**
+const formData = new FormData();
+formData.append('nombre', 'Juan');
+formData.append('edad', 30);
 
 
 //-----------------------------------------------------
