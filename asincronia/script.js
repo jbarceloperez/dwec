@@ -1,7 +1,8 @@
 document.getElementById("btn").addEventListener("click", () => {
-    location.assign("https://www.freecodecamp.org/espanol/news/programacion-asincrona-en-javascript-guia-para-principiantes/");
+    location.assign(
+        "https://www.freecodecamp.org/espanol/news/programacion-asincrona-en-javascript-guia-para-principiantes/"
+    );
 });
-
 
 /*
 En JavaScript, el código generalmente se ejecuta de forma secuencial y bloqueante.
@@ -12,7 +13,8 @@ A continuación, mostramos un ejemplo de una función bloqueante.
 function funcionBloqueante() {
     const inicio = Date.now();
     let tiempo = 0;
-    while (tiempo < 3000) { // Bucle que "bloquea" durante 3 segundos
+    while (tiempo < 3000) {
+        // Bucle que "bloquea" durante 3 segundos
         tiempo = Date.now() - inicio;
     }
     console.log("La función bloqueante ha terminado.");
@@ -134,7 +136,9 @@ myPromise = new Promise((resolve, reject) => {
     }, 2000);
 });
 
-console.log(myPromise);
+setTimeout(() => {
+    console.log(myPromise);
+}, 2001);
 
 // Ahora la promesa tiene un estado fullfilled y un valor definido.
 // Las promesas pueden estar pending, fullfilled o rejected
@@ -143,12 +147,12 @@ console.log(myPromise);
 Una promesa recibe una función con dos argumentos: `resolve` y `reject`.
 - `resolve` se llama cuando la operación es exitosa.
 - `reject` se llama cuando hay un error.
- 
-Adjuntar callbacks a una promesa: Una vez que tienes una referencia, 
-puedes adjuntar funciones de callback utilizando los métodos .then y 
-.catch. El método .then se llama cuando una promesa se cumple y el 
+
+Adjuntar callbacks a una promesa: Una vez que tienes una referencia,
+puedes adjuntar funciones de callback utilizando los métodos .then y
+.catch. El método .then se llama cuando una promesa se cumple y el
 método .catch se llama cuando una promesa se rechaza. También se puede
-añadir el método finally() para ejecutar código después de que la 
+añadir el método finally() para ejecutar código después de que la
 promesa se resuelva o se rechace.
 */
 
@@ -160,7 +164,7 @@ myPromise
     console.log(error);
   })
   .finally(() => {
-    //aquí va el código que será ejecutado independientemente de que la promesa se cumpla o se rechace. 
+    //aquí va el código que será ejecutado independientemente de que la promesa se cumpla o se rechace.
   });
 
 /*
@@ -176,7 +180,7 @@ console.log("Inicio de tareas con promesas");
 function tareaAsincrona(tiempo) {
     return new Promise((resolve) => {
         if (tiempo < 1000) {
-            throw new Error("Error: El tiempo debe ser mayor o igual a 1000 ms");
+            throw new Error("El tiempo debe ser mayor o igual a 1000 ms");
         }
         setTimeout(() => {
             console.log(`Tarea completada en ${tiempo} ms`);
@@ -185,24 +189,26 @@ function tareaAsincrona(tiempo) {
     });
 }
 
-tareaAsincrona(1000)
+let prom1 = tareaAsincrona(1000)
     .then(() => tareaAsincrona(1001))
     .then(() => tareaAsincrona(1002))
     .then(() => tareaAsincrona(993))
     .then(() => console.log("Todas las tareas completadas"))
-    .catch((error) => console.error("Error:", error));
+    .catch((error) => console.error("Error en las promesas:", error));
 
-// console.log("Tareas promesas");
+console.log("Tareas promesas");
 
-// Al trabajar con varias promesas a la vez, puedo querer esperar a que 
-// todas se resuelvan antes de continuar con el código. Para eso, se usa
-// el método Promise.all().
+/*
+Al trabajar con varias promesas a la vez, puedo querer esperar a que
+todas se resuelvan antes de continuar con el código. Para eso, se usa
+el método Promise.all().
+*/
 
-let promesa1 = fetch('https://jsonplaceholder.typicode.com/posts/1');
-let promesa2 = fetch('https://jsonplaceholder.typicode.com/posts/2');
-let promesa3 = fetch('https://jsonplaceholder.typicode.com/posts/3');
+let pr1 = tareaAsincrona(1200);
+let pr2 = tareaAsincrona(1800);
+let pr3 = tareaAsincrona(3600);
 
-Promise.all([promesa1, promesa2, promesa3])
+Promise.all([pr1, pr2, pr3])
 .then(respuestas => {
     console.log('Todas las promesas se han cumplido:', respuestas);
 })
@@ -246,7 +252,7 @@ async function ejecutarTareas() {
 }
 
 ejecutarTareas();
-console.log("Post-Funcion async")
+console.log("Post-Funcion async");
 
 /*
 El uso de `await` permite ejecutar el código de manera secuencial,
@@ -260,7 +266,7 @@ sin necesidad de encadenar múltiples `then()`.
 /*
 Las funciones `async` pueden usar `try/catch` para manejar errores,
 similar al manejo de excepciones en código síncrono. Si una Promesa es 
-rechazada, await lanza una excepciónque puede ser capturada con try/catch.
+rechazada, await lanza una excepción que puede ser capturada con try/catch.
 */
 
 async function ejecutarConErrores() {
@@ -268,16 +274,14 @@ async function ejecutarConErrores() {
         console.log("Iniciando tarea con posible error");
 
         // Simulación de una tarea que falla
-        const resultado = await new Promise((_, reject) =>
-            setTimeout(() => reject("Error en la tarea"), 1500)
+        const resultado = await new Promise((resolver, rechazar) =>
+            setTimeout(() => rechazar("Error en la tarea"), 1500)
         );
 
         console.log(resultado); // No se ejecutará si hay un error
-
     } catch (error) {
         console.error("Capturado en `catch`: ", error);
     }
 }
 
 ejecutarConErrores();
-
