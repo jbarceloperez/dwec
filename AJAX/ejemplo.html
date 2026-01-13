@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass: Asincronía y AJAX</title>
+    <style>
+        /* ESTILOS GENERALES */
+        body { font-family: 'Segoe UI', sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f4f4f9; color: #333; }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { margin-top: 30px; font-size: 1.2rem; color: #555; border-left: 5px solid #3498db; padding-left: 10px; }
+        
+        /* BOTONES SUPERIORES */
+        .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        button { padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: transform 0.1s; font-size: 0.9rem; }
+        button:active { transform: scale(0.98); }
+        
+        .btn-promise { background-color: #e67e22; color: white; }
+        .btn-get { background-color: #3498db; color: white; }
+        .btn-get2 { background-color: #46aaaa; color: white; }
+        .btn-error { background-color: #e74c3c; color: white; }
+        .btn-clear { background-color: #95a5a6; color: white; }
+
+        /* CONSOLA SIMULADA */
+        #console-output {
+            background-color: #2c3e50; 
+            color: #2ecc71; 
+            padding: 15px; 
+            border-radius: 8px;
+            font-family: 'Courier New', monospace; 
+            height: 300px;
+            max-height: 300px; 
+            overflow-y: auto; 
+            scroll-behavior: smooth;           
+            white-space: pre-wrap;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            border: 1px solid #1a252f;
+        }
+
+        /* TARJETAS DE DATOS EN CONSOLA */
+        .card { background: #34495e; color: #ecf0f1; padding: 10px; margin: 5px 0; border-radius: 4px; border-left: 4px solid #f1c40f; font-size: 0.9em; }
+
+        /* ESTILOS DEL FORMULARIO */
+        .form-container {
+            background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #2c3e50; }
+        input[type="text"], textarea {
+            width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;
+            font-family: inherit; box-sizing: border-box; /* Para que el padding no rompa el ancho */
+        }
+        textarea { resize: vertical; height: 80px; }
+        .btn-submit {
+            background-color: #27ae60; color: white; width: 100%; font-size: 1rem; margin-top: 10px;
+        }
+        .btn-submit:hover { background-color: #219150; }
+
+    </style>
+</head>
+<body>
+
+    <h1>🚀 JS Asíncrono + Fetch API</h1>
+    
+    <div id="console-output">Esperando acciones...</div>
+
+    <div class="controls">
+        <button class="btn-promise" onclick="ejemplo1_Promesas()">1. Promesa vs Async</button>
+        <button class="btn-get" onclick="ejemplo2_FetchSimple()">2. Fetch GET</button>
+        <button class="btn-get2" onclick="ejemplo2_FetchSimple2()">2.1 Fetch GET</button>
+        <button class="btn-error" onclick="ejemplo3_ManejoErrores()">3. Manejo Errores</button>
+        <button class="btn-clear" onclick="limpiarConsola()">🧹 Limpiar Consola</button>
+    </div>
+
+    <hr>
+
+    <h2>4. Práctica: Enviar Formulario (POST)</h2>
+    <div class="form-container">
+        <form id="miFormulario">
+            <div class="form-group">
+                <label for="titulo">Título del Post:</label>
+                <input type="text" id="titulo" placeholder="Ej: Aprendiendo Fetch..." required>
+            </div>
+            <div class="form-group">
+                <label for="contenido">Contenido:</label>
+                <textarea id="contenido" placeholder="Escribe algo interesante aquí..." required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">📤 Enviar datos al Servidor</button>
+        </form>
+    </div>
+
+    <script>
+        // ==========================================
+        // UTILIDADES UI
+        // ==========================================
+        const outputDiv = document.getElementById('console-output');
+        
+        function log(msg, type = 'info') {
+            const time = new Date().toLocaleTimeString();
+            const symbol = type === 'error' ? '❌' : (type === 'success' ? '✅' : 'ℹ️');
+            
+            // Añadimos el contenido
+            outputDiv.innerHTML += `<div>[${time}] ${symbol} ${msg}</div>`;
+            outputDiv.scrollTop = outputDiv.scrollHeight;
+            
+            console.log(msg); 
+        }
+
+        function renderCard(title, body) {
+            outputDiv.innerHTML += `<div class='card'><strong>${title}</strong><br>${body}</div>`;
+            outputDiv.scrollTop = outputDiv.scrollHeight; // Scroll también al renderizar cards
+        }
+
+        function limpiarConsola() { outputDiv.innerHTML = '<div>Esperando acciones...</div>'; }
+
+
+        // ==========================================
+        // 1. PROMESAS (Simulación)
+        // ==========================================
+        const esperar = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+        async function ejemplo1_Promesas() {
+            log("--- INICIANDO EJEMPLO 1 ---");
+            try {
+                log("⏳ Preparando datos (2 seg)...");
+                await esperar(2000); 
+                log("¡Datos listos!", 'success'); 
+            } catch (error) {
+                log(error, 'error');
+            }
+        }
+
+        // ==========================================
+        // 2. FETCH GET (Lectura)
+        // ==========================================
+        async function ejemplo2_FetchSimple() {
+            log("--- PETICIÓN GET (Usuarios) ---");
+            try {
+                const res = await fetch('https://jsonplaceholder.typicode.com/users');
+                const data = await res.json();
+                
+                log(`Recibidos ${data.length} usuarios.`);
+                data.slice(0, data.length).forEach(u => renderCard(u.name, u.email));
+            } catch (e) { log(e.message, 'error'); }
+        }
+
+        async function ejemplo2_FetchSimple2() {
+            log("--- PETICIÓN GET (Posts) ---");
+            try {
+                const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+                const data = await res.json();
+                
+                log(`Recibidos ${data.length} posts.`);
+                data.slice(0, 4).forEach(p => renderCard(p.title, p.body));
+            } catch (e) { log(e.message, 'error'); }
+        }
+
+        // ==========================================
+        // 3. ERROR HANDLING
+        // ==========================================
+        async function ejemplo3_ManejoErrores() {
+            log("--- PROBANDO ERROR 404 ---");
+            try {
+                const res = await fetch('https://jsonplaceholder.typicode.com/ruta-falsa');
+                
+                if (!res.ok) {
+                    throw new Error(`🔥 Error HTTP: ${res.status}`);
+                }
+            } catch (e) {
+                log(e.message, 'error');
+            }
+        }
+
+        // ==========================================
+        // 4. FETCH POST (Formulario)
+        // ==========================================
+        
+        // Seleccionamos el formulario del DOM
+        const formulario = document.getElementById('miFormulario');
+
+        // Escuchamos el evento 'submit' (cuando le dan a Enviar o Enter)
+        formulario.addEventListener('submit', async function(evento) {
+            
+            // A. PREVENIR RECARGA (Fundamental en AJAX/SPA)
+            evento.preventDefault(); 
+            
+            log("--- INTENTANDO ENVIAR FORMULARIO ---");
+
+            // B. RECOGER DATOS AUTOMÁTICAMENTE
+            const tituloInput = document.getElementById('titulo').value;
+            const contenidoInput = document.getElementById('contenido').value;
+
+            // Creamos el objeto a enviar
+            const datosParaEnviar = {
+                title: tituloInput,
+                body: contenidoInput,
+                userId: 1, // Simulado
+            };
+
+            log(`Datos capturados: ${JSON.stringify(datosParaEnviar)}`);
+
+            // C. CONFIGURAR LA PETICIÓN
+            try {
+                log("📡 Enviando a la API...");
+                
+                const respuesta = await fetch('https://jsonplaceholder.typicode.com/posts', {
+                    method: 'POST', 
+                    headers: {
+                        'Content-Type': 'application/json; charset=UTF-8',
+                    },
+                    body: JSON.stringify(datosParaEnviar) 
+                });
+
+                if (!respuesta.ok) throw new Error("Error al guardar");
+
+                const respuestaJson = await respuesta.json();
+                
+                // D. FEEDBACK AL USUARIO
+                log("¡Post creado exitosamente!", 'success');
+                renderCard(`ID Respuesta: ${respuestaJson.id}`, respuestaJson.title);
+                log(`Respuesta completa: ${JSON.stringify(respuestaJson)}`);
+                
+                // Opcional: Limpiar el formulario
+                formulario.reset();
+
+            } catch (error) {
+                log("Error en el envío: " + error.message, 'error');
+            }
+        });
+
+    </script>
+</body>
+</html>
