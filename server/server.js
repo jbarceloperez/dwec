@@ -35,7 +35,7 @@ app.get('/posts', (req, res) => {
 app.post('/posts', (req, res) => {
     const { title, content } = req.body;
 
-    console.log(`📤 POST request recibido. Datos:`, req.body);
+    console.log(`📤 POST request recibidodesde: ${req.ip}. Datos:`, req.body);
 
     // Validación básica
     if (!title || !content) {

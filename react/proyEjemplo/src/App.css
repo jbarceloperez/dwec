@@ -1,0 +1,15 @@
+
+.btn-liked {
+    background-color: #179e08; /* Verde */
+    color: white;
+    width: 220px;
+    /* height: 220px;; */
+
+}
+
+.btn-normal {
+    background-color: #e0f2fe; /* Cian claro */
+    color: #000000;
+    transform: scale(1);
+}
+
