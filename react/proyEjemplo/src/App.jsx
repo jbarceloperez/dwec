@@ -1,4 +1,4 @@
-import { Button } from "./Button.jsx";
+import { Button } from "./components/Button.jsx";
 import './App.css';
 
 export function App() {
@@ -7,6 +7,9 @@ export function App() {
       <strong>Me gusta esto</strong>
     </Button>
     <Button initIsLiked={false}>
+      <strong>Me gusta</strong>
+    </Button>
+    <Button initIsLiked={false} bcolor="aquamarine">
       <strong>Me gusta</strong>
     </Button>
   </>)

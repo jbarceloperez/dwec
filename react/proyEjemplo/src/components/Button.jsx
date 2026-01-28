@@ -4,7 +4,7 @@ export function Button({ children, bcolor, initIsLiked }) {
   const [isLiked, setStatedLiked] = useState(initIsLiked);
 
   const buttonClassName = isLiked ? "btn-liked" : "btn-normal";
-  const cambioMeGusta = isLiked ? "Ya no me gusta" : children;
+  const cambioMeGusta = isLiked ? "Ya no me gusta" : children; {/* children es el mensaje original*/}
   const handleClick = () => {
     setStatedLiked(!isLiked);
     console.log("Click en el boton");
